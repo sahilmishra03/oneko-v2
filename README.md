@@ -1,22 +1,41 @@
-oneko
-=====
+# Oneko v2
 
-The ever popular kitty-that-follows-your-mouse-pointer toy.
+A web-based version of the classic **Oneko** - a cat that follows your mouse pointer.
 
+This project adds a **new skin**, along with a **playground** to test Oneko and a simple guide for integrating it into your own website.
 
-Neko is Japanese for cat. According to  [Wikipedia](https://en.wikipedia.org/wiki/Neko_(software)) it was originally written for the NEC PC-9801.
+## What's New
 
-There are many many versions. Generally it is considered Public Domain software, so I am placing my fork under the Unlicense.
+- Added a new custom skin
+- Integrated the new skin into Oneko
+- Playground for testing
+- Installation & integration guide
 
-This fork is based on [Werner Randelshofer's Java port](http://www.randelshofer.ch/blog/2010/07/screenmate-neko-in-java).
+## Playground
 
-The image files are ancient public domain.
-The Java code for v.1.0 is (c) 2010 Werner Randelhofer.
-The Java code for v.2.0 (c) 2019 Gerald Reno
+Use the playground to try Oneko and test the available skins before adding it to your website.
 
-links
-=====
+## Installation
 
-[Download](https://glreno.github.io/oneko)
-[Project wiki](https://github.com/glreno/oneko/wiki)
+Copy the required `js/` and `skins/` folders into your project.
 
+Then add:
+
+```html
+<script src="js/oneko.js"></script>
+```
+
+For complete setup and customization instructions, see the **Installation Guide**.
+
+## Credits
+
+This project builds upon existing Oneko implementations:
+
+- [glreno/oneko](https://github.com/glreno/oneko) - original Java-based Oneko implementation and reference
+- [Raycast Oneko](https://www.raycast.com/miklw/oneko) - reference for the web implementation and skins
+
+Original Oneko concept and assets are credited to their respective authors.
+
+## License
+
+See the included [LICENSE](LICENSE) file for details.
