@@ -6,8 +6,8 @@ import { site } from "@/lib/site";
 
 export const Footer = () => {
   return (
-    <Container className="pb-10">
-      <footer className="my-8 flex flex-col items-center gap-4">
+    <Container className="pb-2">
+      <footer className="mt-8 mb-0 flex flex-col items-center gap-4">
         <div className="flex w-full max-w-xl flex-col items-center gap-2.5">
           <div className="text-foreground/70 text-center text-sm leading-6 text-balance">
             Open source, MIT licensed. Here&apos;s the{" "}
