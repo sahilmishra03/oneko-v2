@@ -79,7 +79,7 @@ export default function SkinsPage() {
           >
             <div className="flex size-16 items-center justify-center rounded-lg border border-white/60 bg-white/45 shadow-inner dark:border-white/10 dark:bg-black/15">
               <Image
-                src={`/skins/${skin}`}
+                src={`/skin-previews/${skin}`}
                 alt={`${skinLabel(skin)} Oneko skin sprite sheet`}
                 width={128}
                 height={128}

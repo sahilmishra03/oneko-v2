@@ -17,7 +17,10 @@ Use the playground to try Oneko and test the available skins before adding it to
 
 ## Installation
 
-Copy the required `js/` and `skins/` folders into your project.
+Copy the required `js/` and `skins/` folders from the downloadable package into
+your project. The repository's `runtime-skins/` folder contains the runtime
+sprite sheets, while `website/public/skin-previews/` contains smaller gallery
+previews for the website.
 
 Then add:
 

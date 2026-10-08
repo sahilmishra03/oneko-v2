@@ -9,7 +9,10 @@
   let idleAnimation = null;
   let idleAnimationFrame = 0;
   let isEnabled = false;
-  let currentSkin = "";
+  const scriptElement = document.currentScript;
+  const skinBaseUrl = scriptElement?.dataset.skinsPath
+    ? new URL(scriptElement.dataset.skinsPath, window.location.origin)
+    : new URL("../skins/", scriptElement?.src ?? window.location.href);
   const nekoSpeed = 10;
   const spriteSets = {
     idle: [[-3, -3]],
@@ -69,7 +72,7 @@
     nekoEl.style.height = "32px";
     nekoEl.style.position = "fixed";
     const skins = [
-      "ace.png", "black.png", "bsd.png", "bunny.png", "calico.png", "cat.png", "catppuccin.png",
+      "ace.png", "black.png", "bsd.png", "bunny.png", "calico.png", "catppuccin.png",
       "dog.png", "eevee.png", "esmeralda.png", "fox.png", "ghost.png", "gray.png",
       "jess.png", "kina.png", "lucy.png", "maia.png", "maria.png", "mike.png",
       "oneko-classic.gif", "oneko.png", "sakura.png", "silver.png", "silversky.png",
@@ -78,10 +81,8 @@
 
     window.onekoChangeSkin = function() {
       const randomSkin = skins[Math.floor(Math.random() * skins.length)];
-      currentSkin = randomSkin;
-      nekoEl.style.backgroundImage = `url('/skins/${randomSkin}')`;
-      nekoEl.style.backgroundSize =
-        randomSkin === "cat.png" ? "128px 128px" : "256px 128px";
+      nekoEl.style.backgroundImage = `url('${new URL(randomSkin, skinBaseUrl)}')`;
+      nekoEl.style.backgroundSize = "256px 128px";
     };
 
     // Initial skin
@@ -132,9 +133,7 @@
 
   function setSprite(name, frame) {
     const sprite = spriteSets[name][frame % spriteSets[name].length];
-    const spriteX =
-      currentSkin === "cat.png" ? -((-sprite[0]) % 4) : sprite[0];
-    nekoEl.style.backgroundPosition = `${spriteX * 32}px ${sprite[1] * 32}px`;
+    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
   }
 
   function resetIdleAnimation() {

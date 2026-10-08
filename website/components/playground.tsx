@@ -92,6 +92,7 @@ export const Playground = () => {
       {isActive && (
         <Script
           src="/js/oneko.js"
+          data-skins-path="/runtime-skins/"
           strategy="afterInteractive"
           onLoad={() => {
             if (!isActiveRef.current) {
