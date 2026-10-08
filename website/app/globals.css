@@ -8,12 +8,12 @@
 
 html {
   background-color: var(--theme-bg);
-  min-width: 360px;
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
 }
 
 body {
+  overflow-x: hidden;
   background-color: var(--theme-bg);
   background-image:
     radial-gradient(

@@ -136,7 +136,7 @@ export const Install = () => {
     <section id="install" className="scroll-mt-8">
       <Subheading>Install</Subheading>
       {mounted ? createPortal(toast, document.body) : null}
-      <div className="mt-5 mb-2 flex items-center justify-between gap-3">
+      <div className="mt-5 mb-2 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <p className="text-foreground text-sm font-semibold">
           Choose your technology
         </p>
@@ -147,7 +147,7 @@ export const Install = () => {
       <div
         role="tablist"
         aria-label="Choose your technology"
-        className="inline-flex max-w-full gap-1 overflow-x-auto rounded-xl border border-white/70 bg-white/45 p-1.5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/8 dark:shadow-black/20"
+        className="flex w-full max-w-full gap-1 overflow-x-auto rounded-xl border border-white/70 bg-white/45 p-1.5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl sm:inline-flex sm:w-fit dark:border-white/10 dark:bg-white/8 dark:shadow-black/20"
       >
         {installOptions.map((option) => (
           <button

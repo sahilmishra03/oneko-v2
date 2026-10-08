@@ -53,16 +53,16 @@ export const Playground = () => {
               around the page.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-foreground/55 mr-auto text-xs font-medium">
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <span className="text-foreground/55 text-xs font-medium sm:mr-auto">
               {isActive ? "Oneko is following your cursor" : "Ready to start"}
             </span>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             <button
               type="button"
               onClick={spawnOneko}
               disabled={isActive}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit cursor-pointer rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold shadow-[0_6px_18px_rgb(0,0,0,0.12)] backdrop-blur-md transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 w-full cursor-pointer rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold shadow-[0_6px_18px_rgb(0,0,0,0.12)] backdrop-blur-md transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit"
             >
               {isActive ? "Oneko is Active!" : "Spawn Oneko"}
             </button>
@@ -72,7 +72,7 @@ export const Playground = () => {
                 <button
                   type="button"
                   onClick={changeSkin}
-                  className="border-border/70 bg-secondary/55 text-secondary-foreground hover:bg-secondary/80 w-fit cursor-pointer rounded-lg border px-3.5 py-2 text-sm font-semibold shadow-sm backdrop-blur-md transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                  className="border-border/70 bg-secondary/55 text-secondary-foreground hover:bg-secondary/80 w-full cursor-pointer rounded-lg border px-3.5 py-2 text-sm font-semibold shadow-sm backdrop-blur-md transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none sm:w-fit"
                 >
                   Change Skin
                 </button>
@@ -83,7 +83,7 @@ export const Playground = () => {
                 <button
                   type="button"
                   onClick={disableOneko}
-                  className="w-fit cursor-pointer rounded-lg border border-red-500/35 bg-red-500/10 px-3.5 py-2 text-sm font-semibold text-red-600 shadow-sm backdrop-blur-md transition-colors hover:bg-red-500/20 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:outline-none dark:border-red-400/35 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/20"
+                  className="w-full cursor-pointer rounded-lg border border-red-500/35 bg-red-500/10 px-3.5 py-2 text-sm font-semibold text-red-600 shadow-sm backdrop-blur-md transition-colors hover:bg-red-500/20 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:outline-none sm:w-fit dark:border-red-400/35 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/20"
                 >
                   Disable Oneko
                 </button>

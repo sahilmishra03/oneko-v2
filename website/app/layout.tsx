@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Settings } from "@/components/settings";
 
 const analyticsDomain = process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN;
 const analyticsScriptUrl = process.env.NEXT_PUBLIC_ANALYTICS_SCRIPT_URL;
@@ -87,7 +86,6 @@ export default async function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className={cn("font-display bg-theme-bg")}>
-        <Settings />
         <Navbar />
         <main>
           <Providers>{children}</Providers>
