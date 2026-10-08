@@ -31,8 +31,8 @@ export const Footer = () => {
               .
             </p>
           </div>
-          <div className="mt-3 flex items-center gap-2 rounded-sm border border-foreground/40 bg-black px-4 py-2 text-[11px] font-semibold text-white shadow-sm">
-            <span className="flex size-5 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white">
+          <div className="mt-3 flex items-center gap-2 rounded-md border border-white/60 bg-neutral-950 px-3 py-1.5 text-[10px] font-semibold tracking-tight text-white shadow-sm dark:border-white/15">
+            <span className="flex size-4 items-center justify-center rounded-full bg-orange-500 text-[9px] font-bold text-white">
               Y
             </span>
             <span>Not Backed by Y Combinator</span>
