@@ -4,7 +4,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 import { DottedUnderline } from "./dotted-underline";
-import { Settings } from "./settings";
 
 const links = [
   { title: "Playground", href: "/#playground" },
@@ -15,8 +14,8 @@ const links = [
 
 export const Navbar = () => {
   return (
-    <nav className="mx-auto flex max-w-2xl flex-col items-start gap-3 px-4 pt-4 md:gap-4 md:pt-8">
-      <div className="relative flex w-full items-center justify-between gap-4 rounded-2xl border border-white/70 bg-white/45 px-4 py-3 pr-12 shadow-[0_10px_35px_rgb(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-white/8 dark:shadow-black/20 sm:pr-4">
+    <nav className="navbar relative mx-auto flex max-w-2xl flex-col items-start gap-3 px-4 pt-4 md:gap-4 md:pt-8">
+      <div className="flex w-full items-center justify-between gap-4 rounded-2xl border border-white/70 bg-white/45 px-4 py-3 pr-12 shadow-[0_10px_35px_rgb(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-white/8 dark:shadow-black/20 sm:pr-4">
         <div className="flex min-w-0 items-center gap-2 perspective-distant">
           <h1 className="text-foreground min-w-0 truncate text-lg font-semibold tracking-tight md:text-xl">
             {site.name}
@@ -25,9 +24,8 @@ export const Navbar = () => {
             </span>
           </h1>
         </div>
-        <Settings />
       </div>
-      <div className="flex w-full items-center justify-between gap-0.5 rounded-full border border-white/60 bg-white/35 p-1.5 shadow-sm backdrop-blur-md sm:w-fit sm:justify-start sm:gap-1 dark:border-white/10 dark:bg-white/5">
+      <div className="navbar-links flex w-full items-center justify-between gap-0.5 rounded-full border border-white/60 bg-white/35 p-1.5 shadow-sm backdrop-blur-md sm:w-fit sm:justify-start sm:gap-1 dark:border-white/10 dark:bg-white/5">
         {links.map((link) => (
           <Link
             key={link.href}

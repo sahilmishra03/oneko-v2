@@ -214,13 +214,13 @@ export const Settings = () => {
   return (
     <div
       ref={containerRef}
-      className="absolute top-3 right-3 z-50 flex flex-col items-end"
+      data-settings-open={open}
+      className="fixed top-3 right-4 z-50 flex size-8 flex-col items-end md:top-4"
     >
       <AnimatePresence mode="wait">
         {!open ? (
           <motion.button
             key="trigger"
-            layoutId="settings-container"
             onClick={() => setOpen(true)}
             whileTap={{ scale: 0.9 }}
             initial={{ opacity: 0 }}
@@ -228,7 +228,7 @@ export const Settings = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "flex aspect-square size-8 items-center justify-center rounded-lg bg-linear-to-b align-middle ring-1 ring-white/20 ring-offset-2 ring-inset",
+              "absolute top-0 right-0 flex aspect-square size-8 items-center justify-center rounded-lg bg-linear-to-b align-middle ring-1 ring-white/20 ring-offset-2 ring-inset",
               colorConfig.gradientFrom,
               colorConfig.gradientTo,
               colorConfig.ringOffset,
@@ -239,13 +239,12 @@ export const Settings = () => {
         ) : (
           <motion.div
             key="panel"
-            layoutId="settings-container"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "absolute top-0 right-0 w-52 overflow-hidden rounded-xl border border-white/35 bg-linear-to-br p-2.5 text-white shadow-[0_14px_35px_rgb(0,0,0,0.18)] ring-1 ring-white/35 backdrop-blur-2xl dark:border-white/15 dark:shadow-black/40",
+              "fixed top-11 right-4 w-52 overflow-hidden rounded-xl border border-white/35 bg-linear-to-br p-2.5 text-white shadow-[0_14px_35px_rgb(0,0,0,0.18)] ring-1 ring-white/35 backdrop-blur-2xl md:top-12 dark:border-white/15 dark:shadow-black/40",
               colorConfig.gradientFrom,
               colorConfig.gradientTo,
             )}
