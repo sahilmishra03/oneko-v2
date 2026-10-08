@@ -2,7 +2,13 @@
 import { cn } from "@/lib/utils";
 import { IconCheck, IconSettingsFilled } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { DottedSeparator } from "./separator";
 
 type FontOption = "inter" | "schibsted" | "geist";
@@ -178,12 +184,21 @@ export const Settings = () => {
   );
   const { font, color } = settings;
 
+  const resetOpenState = useCallback(() => {
+    setOpen(true);
+  }, []);
+
   useEffect(() => {
     const saved = loadSettings();
     settingsSnapshot = saved;
     applySettings(saved.font, saved.color);
     settingsListeners.forEach((listener) => listener());
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("pageshow", resetOpenState);
+    return () => window.removeEventListener("pageshow", resetOpenState);
+  }, [resetOpenState]);
 
   useEffect(() => {
     if (!open) return;

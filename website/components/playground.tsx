@@ -76,10 +76,14 @@ export const Playground = () => {
                 >
                   Change Skin
                 </button>
+                <span
+                  aria-hidden="true"
+                  className="mx-1 hidden h-6 w-px bg-border/70 sm:block"
+                />
                 <button
                   type="button"
                   onClick={disableOneko}
-                  className="border-border/70 bg-background/45 text-foreground hover:bg-secondary/70 w-fit cursor-pointer rounded-lg border px-3.5 py-2 text-sm font-semibold shadow-sm backdrop-blur-md transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                  className="w-fit cursor-pointer rounded-lg border border-red-500/35 bg-red-500/10 px-3.5 py-2 text-sm font-semibold text-red-600 shadow-sm backdrop-blur-md transition-colors hover:bg-red-500/20 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:outline-none dark:border-red-400/35 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/20"
                 >
                   Disable Oneko
                 </button>
