@@ -3,16 +3,17 @@
  * Change it here and every page, the sitemap and the OG metadata follow.
  */
 export const site = {
-  name: "envo",
-  tagline: "Zero-trust encrypted .env sync over Nostr.",
+  name: "Oneko v2",
+  tagline: "A web-based version of the classic Oneko - a cat that follows your mouse pointer.",
   description:
-    "envo syncs .env secrets across your team over Nostr, encrypted per teammate so no server or relay can ever read them, even if it is fully compromised.",
+    "This project adds a new skin, along with a playground to test Oneko and a simple guide for integrating it into your own website.",
   // Set NEXT_PUBLIC_SITE_URL at build time to the real domain; it drives
   // metadataBase, robots.txt and sitemap.xml.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  github: "https://github.com/kaihere14/envo",
-  releases: "https://github.com/kaihere14/envo/releases",
+  github: "https://github.com/sahilmishra03/oneko-v2",
+  releases: "https://github.com/sahilmishra03/oneko-v2/releases",
+  portfolio: "https://sahilmishra.dev",
+  author: "Sahil Mishra",
   installCommand:
-    "curl -fsSL https://raw.githubusercontent.com/kaihere14/envo/main/install.sh | sh",
-  status: "Beta",
+    "<script src=\"js/oneko.js\"></script>",
 } as const;

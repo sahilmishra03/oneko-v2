@@ -1,19 +1,12 @@
 "use client";
-import { SPRING_CONFIG } from "@/lib/motion-config";
 import { cn } from "@/lib/utils";
-import { IconSettingsFilled, IconX } from "@tabler/icons-react";
+import { IconCheck, IconSettingsFilled } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { DottedSeparator } from "./separator";
 
 type FontOption = "inter" | "schibsted" | "geist";
-type ColorOption =
-  | "regular"
-  | "rose"
-  | "emerald"
-  | "blue"
-  | "amber"
-  | "violet";
+type ColorOption = "regular" | "rose" | "emerald" | "blue" | "amber" | "violet";
 
 const FONTS: { id: FontOption; label: string; variable: string }[] = [
   {
@@ -112,17 +105,33 @@ const COLORS: {
 ];
 
 const STORAGE_KEY = "site-settings";
+const DEFAULT_SETTINGS = {
+  font: "geist" as FontOption,
+  color: "regular" as ColorOption,
+};
+let settingsSnapshot = DEFAULT_SETTINGS;
+const settingsListeners = new Set<() => void>();
+
+function subscribeToSettings(listener: () => void) {
+  settingsListeners.add(listener);
+  return () => settingsListeners.delete(listener);
+}
+
+function getSettingsSnapshot() {
+  return settingsSnapshot;
+}
+
+function getServerSettingsSnapshot() {
+  return DEFAULT_SETTINGS;
+}
 
 function isColorOption(value: unknown): value is ColorOption {
-  return (
-    typeof value === "string" &&
-    COLORS.some((c) => c.id === value)
-  );
+  return typeof value === "string" && COLORS.some((c) => c.id === value);
 }
 
 function loadSettings(): { font: FontOption; color: ColorOption } {
   if (typeof window === "undefined")
-    return { font: "schibsted", color: "regular" };
+    return { font: "geist", color: "regular" };
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -130,22 +139,22 @@ function loadSettings(): { font: FontOption; color: ColorOption } {
         font?: FontOption;
         color?: unknown;
       };
-      const color = isColorOption(parsed.color)
-        ? parsed.color
-        : "regular";
+      const color = isColorOption(parsed.color) ? parsed.color : "regular";
       const font =
-        parsed.font &&
-        FONTS.some((f) => f.id === parsed.font)
+        parsed.font && FONTS.some((f) => f.id === parsed.font)
           ? parsed.font
-          : "schibsted";
+          : "geist";
       return { font, color };
     }
   } catch {}
-  return { font: "schibsted", color: "regular" };
+  return { font: "geist", color: "regular" };
 }
 
 function saveSettings(font: FontOption, color: ColorOption) {
+  settingsSnapshot = { font, color };
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ font, color }));
+  document.cookie = `site-color=${color}; path=/; max-age=31536000; samesite=lax`;
+  settingsListeners.forEach((listener) => listener());
 }
 
 function applySettings(font: FontOption, color: ColorOption) {
@@ -160,16 +169,20 @@ function applySettings(font: FontOption, color: ColorOption) {
 }
 
 export const Settings = () => {
-  const [open, setOpen] = useState(false);
-  const [font, setFont] = useState<FontOption>("schibsted");
-  const [color, setColor] = useState<ColorOption>("regular");
+  const [open, setOpen] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  const settings = useSyncExternalStore(
+    subscribeToSettings,
+    getSettingsSnapshot,
+    getServerSettingsSnapshot,
+  );
+  const { font, color } = settings;
 
   useEffect(() => {
     const saved = loadSettings();
-    setFont(saved.font);
-    setColor(saved.color);
+    settingsSnapshot = saved;
     applySettings(saved.font, saved.color);
+    settingsListeners.forEach((listener) => listener());
   }, []);
 
   useEffect(() => {
@@ -187,13 +200,11 @@ export const Settings = () => {
   }, [open]);
 
   const handleFont = (f: FontOption) => {
-    setFont(f);
     applySettings(f, color);
     saveSettings(f, color);
   };
 
   const handleColor = (c: ColorOption) => {
-    setColor(c);
     applySettings(font, c);
     saveSettings(font, c);
   };
@@ -234,10 +245,9 @@ export const Settings = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "fixed top-4 right-4 w-56 rounded-xl border border-neutral-200 bg-linear-to-b p-4 shadow-sm ring-1 ring-white/20 ring-offset-2 ring-inset dark:border-neutral-700",
+              "fixed top-3 right-3 w-52 overflow-hidden rounded-xl border border-white/35 bg-linear-to-br p-2.5 text-white shadow-[0_14px_35px_rgb(0,0,0,0.18)] ring-1 ring-white/35 backdrop-blur-2xl dark:border-white/15 dark:shadow-black/40",
               colorConfig.gradientFrom,
               colorConfig.gradientTo,
-              colorConfig.ringOffset,
             )}
           >
             <motion.div
@@ -245,19 +255,33 @@ export const Settings = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.15 }}
             >
-              <div className="mb-3">
-                <div className="flex items-start gap-1.5">
+              <div className="mb-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="sr-only">
+                    <p className="text-foreground text-sm font-semibold">
+                      Appearance
+                    </p>
+                    <p className="text-foreground/55 mt-0.5 text-[11px]">
+                      Customize your Oneko experience
+                    </p>
+                  </div>
+                  <span className="sr-only">
+                    Settings
+                  </span>
+                </div>
+                <p className="sr-only">Font</p>
+                <div className="grid grid-cols-3 gap-0.5">
                   {FONTS.map((f) => (
                     <button
                       key={f.id}
+                      type="button"
                       onClick={() => handleFont(f.id)}
                       style={{ fontFamily: f.variable }}
                       className={cn(
-                        `rounded-md bg-linear-to-b px-2 py-1 text-xs font-light text-white shadow-sm ring-1 shadow-black/10 ring-black/10 transition-all duration-200`,
-                        font === f.id && colorConfig.gradientFrom,
-                        font === f.id && colorConfig.gradientTo,
-                        font === f.id && colorConfig.ringOffset,
-                        font === f.id && "shadow-black/60",
+                        "flex min-w-0 cursor-pointer items-center justify-center rounded-md border border-white/15 px-1 py-1.5 text-[10px] leading-none font-medium whitespace-nowrap text-white/90 transition-all duration-200 hover:bg-white/15",
+                        font === f.id
+                          ? "bg-white/25 text-white shadow-sm"
+                          : "",
                       )}
                     >
                       {f.label}
@@ -265,24 +289,37 @@ export const Settings = () => {
                   ))}
                 </div>
               </div>
-              <DottedSeparator />
-              <div className="mt-4">
-                <div className="flex gap-2">
+              <DottedSeparator
+                className="my-2"
+                svgClassName="text-white/70"
+              />
+              <div>
+                <p className="sr-only">Color theme: {colorConfig.label}</p>
+                <div className="flex items-center justify-between gap-1 px-0.5">
                   {COLORS.map((c) => (
                     <button
                       key={c.id}
+                      type="button"
                       onClick={() => handleColor(c.id)}
-                      className="group flex flex-col items-center gap-1"
+                      aria-label={`Use ${c.label} color theme`}
+                      aria-pressed={color === c.id}
+                      className={cn(
+                        "group flex size-6 cursor-pointer items-center justify-center rounded-full outline-none transition-all focus:ring-0 focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-none",
+                        color === c.id
+                          ? "ring-1 ring-white"
+                          : "hover:scale-110",
+                      )}
                     >
                       <div
                         className={cn(
-                          `size-4 rounded-full transition-all`,
+                          "relative size-5 rounded-full border border-white/80 shadow-inner transition-all",
                           c.swatch,
-                          color === c.id
-                            ? `ring-2 ring-offset-2 ${c.activeRing}`
-                            : "ring-1 ring-neutral-200 group-hover:ring-neutral-400",
                         )}
-                      />
+                      >
+                        {color === c.id ? (
+                          <IconCheck className="absolute inset-0 m-auto size-3 text-white drop-shadow-md" />
+                        ) : null}
+                      </div>
                     </button>
                   ))}
                 </div>

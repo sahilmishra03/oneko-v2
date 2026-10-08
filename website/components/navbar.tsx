@@ -1,51 +1,31 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import { motion } from "motion/react";
-import { GENERAL_VARIANT, SPRING_CONFIG } from "@/lib/motion-config";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 import { DottedUnderline } from "./dotted-underline";
 
 const links = [
-  { title: "Install", href: "#install" },
-  { title: "How it works", href: "#how-it-works" },
-  { title: "Under the hood", href: "#under-the-hood" },
+  { title: "Playground", href: "/#playground" },
+  { title: "Install", href: "/#install" },
+  { title: "Skins", href: "/skins" },
   { title: "GitHub", href: site.github, external: true },
 ];
 
 export const Navbar = () => {
   return (
     <nav className="mx-auto flex max-w-2xl flex-col items-start gap-4 px-4 pt-4 md:pt-8">
-      <div className="flex items-center gap-2 perspective-distant">
-        <motion.div
-          variants={GENERAL_VARIANT}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          transition={SPRING_CONFIG}
-          className="rounded-md bg-transparent ark:bg-neutral-800"
-        >
-          <Image
-            src="/envo.webp"
-            alt=""
-            width={40}
-            height={40}
-            priority
-            className="aspect-square size-6 rounded-md object-contain shadow-2xl"
-          />
-        </motion.div>
-        <h1 className="text-foreground text-xl font-medium tracking-tight md:text-2xl">
-          {site.name}{" "}
-          <span className="text-foreground/50 font-normal">—</span>{" "}
-          <span className="font-normal italic">secrets that stay secret</span>
-        </h1>
-        <span className="text-foreground/60 shrink-0 rounded-full border border-neutral-300 px-2 py-0.5 font-mono text-[10px] tracking-wide uppercase dark:border-neutral-700">
-          {site.status}
-        </span>
+      <div className="flex w-full items-center justify-between gap-4 rounded-2xl border border-white/70 bg-white/45 px-4 py-3 shadow-[0_10px_35px_rgb(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-white/8 dark:shadow-black/20">
+        <div className="flex min-w-0 items-center gap-2 perspective-distant">
+          <h1 className="text-foreground min-w-0 truncate text-lg font-semibold tracking-tight md:text-xl">
+            {site.name}
+            <span className="text-foreground/45 ml-2 hidden font-normal sm:inline">
+              — a cat that follows your mouse pointer
+            </span>
+          </h1>
+        </div>
       </div>
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-1 rounded-full border border-white/60 bg-white/35 p-1.5 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5">
         {links.map((link) => (
           <Link
             key={link.href}
@@ -54,7 +34,7 @@ export const Navbar = () => {
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
             className={cn(
-              "group text-foreground/70 hover:text-primary relative transition-colors",
+              "group text-foreground/70 hover:text-primary relative rounded-full px-3 py-1.5 text-sm transition-colors hover:bg-white/50 dark:hover:bg-white/10",
             )}
           >
             {link.title}

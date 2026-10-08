@@ -8,6 +8,8 @@
   let idleTime = 0;
   let idleAnimation = null;
   let idleAnimationFrame = 0;
+  let isEnabled = false;
+  let currentSkin = "";
   const nekoSpeed = 10;
   const spriteSets = {
     idle: [[-3, -3]],
@@ -57,19 +59,34 @@
   };
 
   function create() {
+    if (isEnabled) {
+      return;
+    }
+
+    isEnabled = true;
     nekoEl.id = "oneko";
     nekoEl.style.width = "32px";
     nekoEl.style.height = "32px";
     nekoEl.style.position = "fixed";
     const skins = [
-      "ace.png", "black.png", "bsd.png", "bunny.png", "calico.png", "catppuccin.png",
+      "ace.png", "black.png", "bsd.png", "bunny.png", "calico.png", "cat.png", "catppuccin.png",
       "dog.png", "eevee.png", "esmeralda.png", "fox.png", "ghost.png", "gray.png",
       "jess.png", "kina.png", "lucy.png", "maia.png", "maria.png", "mike.png",
       "oneko-classic.gif", "oneko.png", "sakura.png", "silver.png", "silversky.png",
       "spirit.png", "tomoyo.png", "tora-x11.png", "valentine.png", "vaporwave.png"
     ];
-    const randomSkin = skins[Math.floor(Math.random() * skins.length)];
-    nekoEl.style.backgroundImage = `url('./skins/${randomSkin}')`;
+
+    window.onekoChangeSkin = function() {
+      const randomSkin = skins[Math.floor(Math.random() * skins.length)];
+      currentSkin = randomSkin;
+      nekoEl.style.backgroundImage = `url('/skins/${randomSkin}')`;
+      nekoEl.style.backgroundSize =
+        randomSkin === "cat.png" ? "128px 128px" : "256px 128px";
+    };
+
+    // Initial skin
+    window.onekoChangeSkin();
+
     nekoEl.style.imageRendering = "pixelated";
     nekoEl.style.left = "16px";
     nekoEl.style.top = "16px";
@@ -78,40 +95,46 @@
     document.body.appendChild(nekoEl);
 
     // Desktop Mouse Support
-    document.addEventListener("mousemove", (event) => {
+    const handleMouseMove = (event) => {
       mousePosX = event.clientX;
       mousePosY = event.clientY;
-    });
+    };
 
     // Mobile Touch Support
-    document.addEventListener(
-      "touchstart",
-      (event) => {
-        if (event.touches.length > 0) {
-          mousePosX = event.touches[0].clientX;
-          mousePosY = event.touches[0].clientY;
-        }
-      },
-      { passive: true }
-    );
+    const handleTouch = (event) => {
+      if (event.touches.length > 0) {
+        mousePosX = event.touches[0].clientX;
+        mousePosY = event.touches[0].clientY;
+      }
+    };
 
-    document.addEventListener(
-      "touchmove",
-      (event) => {
-        if (event.touches.length > 0) {
-          mousePosX = event.touches[0].clientX;
-          mousePosY = event.touches[0].clientY;
-        }
-      },
-      { passive: true }
-    );
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("touchstart", handleTouch, { passive: true });
+    document.addEventListener("touchmove", handleTouch, { passive: true });
 
     window.onekoInterval = setInterval(frame, 100);
+
+    window.onekoDisable = function () {
+      if (!isEnabled) {
+        return;
+      }
+
+      isEnabled = false;
+      clearInterval(window.onekoInterval);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("touchstart", handleTouch);
+      document.removeEventListener("touchmove", handleTouch);
+      nekoEl.remove();
+    };
+
+    window.onekoEnable = create;
   }
 
   function setSprite(name, frame) {
     const sprite = spriteSets[name][frame % spriteSets[name].length];
-    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+    const spriteX =
+      currentSkin === "cat.png" ? -((-sprite[0]) % 4) : sprite[0];
+    nekoEl.style.backgroundPosition = `${spriteX * 32}px ${sprite[1] * 32}px`;
   }
 
   function resetIdleAnimation() {

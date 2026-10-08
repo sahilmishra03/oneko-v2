@@ -3,7 +3,7 @@ import { Subheading } from "./subheading";
 
 const limitations = [
   {
-    title: "Beta, and unaudited",
+    title: "Early, and unaudited",
     description:
       "It works, and it is early. No third-party security audit has been done yet, so weigh that against what you are about to put in it.",
   },

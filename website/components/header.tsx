@@ -1,35 +1,28 @@
 import React from "react";
-import { LinkPreview } from "./link-preview";
 import { InlineCode } from "./code";
 
 export const Header = () => {
   return (
-    <div>
-      <p className="text-foreground pt-6 text-xl font-medium text-pretty md:text-2xl">
-        Share <InlineCode className="text-[0.85em]">.env</InlineCode> secrets
-        with your team, and keep them unreadable to everyone else, even to a
-        server that has been completely taken over.
-      </p>
-      <div className="text-foreground pt-4 text-base">
-        envo is a command line tool that syncs your{" "}
-        <InlineCode>.env</InlineCode> files across a team. Every secret is
-        encrypted on your machine, once for each teammate you trust, before it
-        ever leaves it. What gets stored is ciphertext nobody but the intended
-        recipient can open.
+    <header className="relative mt-6 overflow-hidden rounded-3xl border border-white/70 bg-white/45 p-6 shadow-[0_18px_55px_rgb(0,0,0,0.08)] backdrop-blur-xl md:p-9 dark:border-white/10 dark:bg-white/8 dark:shadow-black/20">
+      <div className="bg-primary/20 pointer-events-none absolute -top-20 -right-12 size-56 rounded-full blur-3xl" />
+      <div className="relative max-w-2xl">
+        <p className="text-primary text-[11px] font-bold tracking-[0.2em] uppercase">
+          A tiny companion for the web
+        </p>
+        <h2 className="text-foreground mt-4 text-3xl leading-tight font-semibold tracking-tight text-pretty md:text-4xl">
+          Bring a little <InlineCode className="text-[0.85em]">neko</InlineCode>{" "}
+          (cat) to your website!
+        </h2>
+        <p className="text-foreground/80 mt-5 max-w-xl text-base leading-7 text-pretty">
+          Oneko is a tiny cat that follows your cursor around the screen. This
+          web-based version is lightweight, easy to customize, and ready to add
+          a little personality to your project.
+        </p>
+        <p className="text-foreground/60 mt-3 max-w-xl text-sm leading-6 text-pretty">
+          Try different skins in the playground, then download the files and
+          add Oneko to your own website.
+        </p>
       </div>
-      <div className="text-foreground pt-4 text-base">
-        Every other option asks you to trust somebody. Doppler and Infisical
-        ask you to trust their company. A password manager asks you to trust a
-        shared vault. Pasting into Slack asks you to trust Slack. If any of
-        those get breached or served a subpoena, your secrets go with them.
-      </div>
-      <div className="text-foreground pt-4 text-base">
-        envo removes the trust requirement instead of asking you to extend it.
-        There is no server that could decrypt your secrets if it wanted to,
-        because there is no server that ever holds the keys. Data lives on{" "}
-        <LinkPreview url="https://nostr.com">Nostr</LinkPreview> relays, and a
-        relay only ever sees noise.
-      </div>
-    </div>
+    </header>
   );
 };
