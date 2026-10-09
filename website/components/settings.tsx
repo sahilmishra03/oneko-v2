@@ -130,8 +130,7 @@ function isColorOption(value: unknown): value is ColorOption {
 }
 
 function loadSettings(): { font: FontOption; color: ColorOption } {
-  if (typeof window === "undefined")
-    return { font: "geist", color: "regular" };
+  if (typeof window === "undefined") return { font: "geist", color: "regular" };
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -215,7 +214,7 @@ export const Settings = () => {
     <div
       ref={containerRef}
       data-settings-open={open}
-      className="fixed top-3 right-4 z-50 flex size-8 flex-col items-end md:top-4"
+      className="fixed right-4 bottom-3 z-50 flex size-8 flex-col items-end md:top-4 md:bottom-auto"
     >
       <AnimatePresence mode="wait">
         {!open ? (
@@ -244,7 +243,7 @@ export const Settings = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "fixed top-11 right-4 w-52 overflow-hidden rounded-xl border border-white/35 bg-linear-to-br p-2.5 text-white shadow-[0_14px_35px_rgb(0,0,0,0.18)] ring-1 ring-white/35 backdrop-blur-2xl md:top-12 dark:border-white/15 dark:shadow-black/40",
+              "fixed right-4 bottom-14 w-52 overflow-hidden rounded-xl border border-white/35 bg-linear-to-br p-2.5 text-white shadow-[0_14px_35px_rgb(0,0,0,0.18)] ring-1 ring-white/35 backdrop-blur-2xl md:top-10 md:bottom-auto dark:border-white/15 dark:shadow-black/40",
               colorConfig.gradientFrom,
               colorConfig.gradientTo,
             )}
@@ -264,9 +263,7 @@ export const Settings = () => {
                       Customize your Oneko experience
                     </p>
                   </div>
-                  <span className="sr-only">
-                    Settings
-                  </span>
+                  <span className="sr-only">Settings</span>
                 </div>
                 <p className="sr-only">Font</p>
                 <div className="grid grid-cols-3 gap-0.5">
@@ -278,9 +275,7 @@ export const Settings = () => {
                       style={{ fontFamily: f.variable }}
                       className={cn(
                         "flex min-w-0 cursor-pointer items-center justify-center rounded-md border border-white/15 px-1 py-1.5 text-[10px] leading-none font-medium whitespace-nowrap text-white/90 transition-all duration-200 hover:bg-white/15",
-                        font === f.id
-                          ? "bg-white/25 text-white shadow-sm"
-                          : "",
+                        font === f.id ? "bg-white/25 text-white shadow-sm" : "",
                       )}
                     >
                       {f.label}
@@ -288,10 +283,7 @@ export const Settings = () => {
                   ))}
                 </div>
               </div>
-              <DottedSeparator
-                className="my-2"
-                svgClassName="text-white/70"
-              />
+              <DottedSeparator className="my-2" svgClassName="text-white/70" />
               <div>
                 <p className="sr-only">Color theme: {colorConfig.label}</p>
                 <div className="flex items-center justify-between gap-1 px-0.5">
@@ -303,7 +295,7 @@ export const Settings = () => {
                       aria-label={`Use ${c.label} color theme`}
                       aria-pressed={color === c.id}
                       className={cn(
-                        "group flex size-6 cursor-pointer items-center justify-center rounded-full outline-none transition-all focus:ring-0 focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-none",
+                        "group flex size-6 cursor-pointer items-center justify-center rounded-full transition-all outline-none focus:ring-0 focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-none",
                         color === c.id
                           ? "ring-1 ring-white"
                           : "hover:scale-110",

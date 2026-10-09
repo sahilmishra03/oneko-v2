@@ -24,7 +24,6 @@ const skins = [
   "maia.png",
   "maria.png",
   "mike.png",
-  "oneko.png",
   "sakura.png",
   "silver.png",
   "silversky.png",
