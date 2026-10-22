@@ -17,6 +17,15 @@ export const Navbar = () => {
     <nav className="navbar relative mx-auto flex max-w-2xl flex-col items-start gap-3 px-4 pt-4 md:gap-4 md:pt-8">
       <div className="flex w-full items-center justify-between gap-4 rounded-2xl border border-white/70 bg-white/45 px-4 py-3 pr-16 shadow-[0_10px_35px_rgb(0,0,0,0.06)] backdrop-blur-xl sm:pr-4 dark:border-white/10 dark:bg-white/8 dark:shadow-black/20">
         <div className="flex min-w-0 items-center gap-2 perspective-distant">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.svg"
+            alt=""
+            aria-hidden="true"
+            width={40}
+            height={40}
+            className="size-10 shrink-0"
+          />
           <h1 className="text-foreground min-w-0 truncate text-lg font-semibold tracking-tight md:text-xl">
             {site.name}
             <span className="text-foreground/45 ml-2 hidden font-normal sm:inline">
