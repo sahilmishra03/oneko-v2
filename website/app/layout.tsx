@@ -29,10 +29,6 @@ export const metadata: Metadata = {
     default: site.name,
     template: `%s | ${site.name}`,
   },
-  icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
-  },
   description: site.description,
   openGraph: {
     title: `${site.name} - ${site.tagline}`,
